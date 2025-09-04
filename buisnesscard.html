@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Business Card</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .business-card {
+            width: 450px;
+            height: 250px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .business-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 0 15px 0 100px;
+            opacity: 0.1;
+        }
+
+        .business-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-content {
+            display: flex;
+            height: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .left-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .right-section {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+
+        .title {
+            font-size: 14px;
+            color: #667eea;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .bio {
+            font-size: 12px;
+            color: #5a6c7d;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ffffff;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.05);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .social-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #764ba2, #667eea);
+        }
+
+        .decorative-line {
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            margin: 8px 0;
+            border-radius: 1px;
+        }
+
+        @media (max-width: 400px) {
+            .business-card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="business-card">
+        <div class="card-content">
+            <div class="left-section">
+                <div class="top-info">
+                    <h1 class="name">Namrita Aggarwal</h1>
+                    <div class="decorative-line"></div>
+                    <h2 class="title">Tech Enthusiast|CSE Student</h2>
+                    <p class="bio"> <b>Skills:</b> C++, HTML, CSS, PHP <br>
+<b>Creative Side:</b> Sketching & Painting (State/District Achievements) <br>
+<b>Interests:</b> Web Development | Problem Solving | Innovation 
+</p>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/namrita-aggarwal-1383a8201/" class="social-link" title="LinkedIn">
+                        <span>in</span>
+                    </a>
+                    <a href="https://leetcode.com/u/namritaa01/" class="social-link" title="leetcode">
+                        <span>🔗</span>
+                    </a>
+                    
+                    </a>
+                    <a href="mailto:namritaaggarwal@gmail.com" class="social-link" title="Email">
+                        <span>@</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="right-section">
+                <img src="profilepic.jpg" 
+                     alt="Alexandra Chen" 
+                     class="profile-pic">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
