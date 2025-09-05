@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grade Calculator</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+  body {
+    background: linear-gradient(135deg, #fce4ec, #f8bbd0, #ec407a);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    padding: 30px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+  }
+  .header { display: flex; justify-content: space-between; align-items: center; background: #fff0f6; border-radius: 16px; padding: 20px; margin-bottom: 25px; }
+  .header-text h2 { font-size: 1.6em; font-weight: 700; color: #333; margin-bottom: 8px; }
+  .header-text p { font-size: 0.95em; color: #777; }
+  .header-emoji { font-size: 3em; }
+  .subtitle { color: #666; margin-bottom: 25px; font-size: 1em; }
+  .input-group { margin-bottom: 20px; text-align: left; }
+  label { display: block; margin-bottom: 8px; color: #555; font-weight: 600; }
+  input { width: 100%; padding: 12px; border: 2px solid #e1e5e9; border-radius: 12px; font-size: 1em; text-align: center; transition: all 0.3s ease; }
+  input:focus { outline: none; border-color: #ec407a; box-shadow: 0 0 0 3px rgba(236,64,122,0.2); }
+  .btn {
+  background: linear-gradient(135deg, #ff6ec7, #d81b60);
+  color: white;
+  border: none;
+  padding: 14px 36px;
+  border-radius: 50px;
+  font-size: 1.1em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: auto;
+  box-shadow: 0 6px 15px rgba(216, 27, 96, 0.3);
+}
+
+.btn:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 25px rgba(216, 27, 96, 0.5);
+}
+
+
+  /* Vertical Bar Chart */
+  .bar-chart { display:flex; justify-content: space-around; align-items:flex-end; height: 200px; margin-top:20px; gap:10px; }
+  .bar-container { display:flex; flex-direction: column; align-items:center; flex:1; }
+  .bar {
+    width:50px; border-radius:12px 12px 0 0;
+    display:flex; align-items:flex-end; justify-content:center;
+    color:white; font-weight:700; font-family:'Poppins'; transition: all 0.3s ease;
+    transform: scaleY(1); opacity: 0.6;
+  }
+  .bar-label {
+    margin-top:6px;
+    font-weight:600;
+    color:#555;
+    text-align:center;
+    width:100%;
+  }
+  .bar-A { background: linear-gradient(135deg,#4CAF50,#45a049); height:180px; }
+  .bar-B { background: linear-gradient(135deg,#2196F3,#1976D2); height:160px; }
+  .bar-C { background: linear-gradient(135deg,#FF9800,#F57C00); height:140px; }
+  .bar-D { background: linear-gradient(135deg,#FF5722,#D84315); height:120px; }
+  .bar-F { background: linear-gradient(135deg,#F44336,#C62828); height:100px; }
+
+  /* Active effect */
+  .active-bar { transform: scaleY(1.2); opacity: 1; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="header-text">
+      <h2>Welcome to Grade Calculator</h2>
+      <p>Calculate your grades easily 📊</p>
+    </div>
+    <div class="header-emoji">🧠</div>
+  </div>
+
+  <p class="subtitle">Enter your numeric score to get your grade!</p>
+  
+  <div class="input-group">
+    <label for="scoreInput">Score (0-100):</label>
+    <input type="number" id="scoreInput" min="0" max="100" placeholder="Enter your score">
+  </div>
+  
+  <button class="btn" onclick="highlightGrade()">Calculate Grade</button>
+  
+  <!-- Vertical Bar Chart -->
+  <div class="bar-chart">
+    <div class="bar-container"><div class="bar bar-A">A</div><div class="bar-label">90-100</div></div>
+    <div class="bar-container"><div class="bar bar-B">B</div><div class="bar-label">80-89</div></div>
+    <div class="bar-container"><div class="bar bar-C">C</div><div class="bar-label">70-79</div></div>
+    <div class="bar-container"><div class="bar bar-D">D</div><div class="bar-label">60-69</div></div>
+    <div class="bar-container"><div class="bar bar-F">F</div><div class="bar-label">0-59</div></div>
+  </div>
+</div>
+
+<script>
+function calculateGrade(score) {
+  if(score >= 90) return "A";
+  else if(score >= 80) return "B";
+  else if(score >= 70) return "C";
+  else if(score >= 60) return "D";
+  else return "F";
+}
+
+function highlightGrade() {
+  const input = document.getElementById('scoreInput');
+  const score = parseFloat(input.value);
+  if(isNaN(score) || score < 0 || score > 100) {
+    alert("Enter a valid score between 0 and 100!");
+    return;
+  }
+
+  const grade = calculateGrade(score);
+  const bars = document.querySelectorAll('.bar');
+  
+  bars.forEach(bar => {
+    if(bar.classList.contains(`bar-${grade}`)) {
+      bar.classList.add('active-bar'); // Highlight the resulting grade
+    } else {
+      bar.classList.remove('active-bar'); // Dim the others
+    }
+  });
+}
+
+document.getElementById('scoreInput').addEventListener('keypress', function(e){
+  if(e.key === 'Enter') highlightGrade();
+});
+</script>
+</body>
+</html>
