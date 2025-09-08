@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Business Card</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root{
+            --bg-gradient-light: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --card-bg-light: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            --text-primary-light: #2c3e50;
+            --muted-light: #5a6c7d;
+
+            --bg-gradient-dark: linear-gradient(135deg, #0f1724 0%, #0b1220 100%);
+            --card-bg-dark: linear-gradient(135deg, #0f1724cc 0%, #071024cc 100%);
+            --text-primary-dark: #e6eef8;
+            --muted-dark: #9fb0c7;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: var(--bg-gradient-light);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: background 0.35s ease;
+        }
+
+        /* Dark mode root */
+        body.dark-mode {
+            background: var(--bg-gradient-dark);
+        }
+
+        .business-card {
+            width: 450px;
+            height: 250px;
+            background: var(--card-bg-light);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease, background 0.35s ease, box-shadow 0.35s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        body.dark-mode .business-card {
+            background: var(--card-bg-dark);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .business-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 0 15px 0 100px;
+            opacity: 0.1;
+        }
+
+        .business-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-content {
+            display: flex;
+            height: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .left-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .right-section {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .name {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--text-primary-light);
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+
+        body.dark-mode .name{
+            color: var(--text-primary-dark);
+        }
+
+        .title {
+            font-size: 14px;
+            color: #667eea;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .bio {
+            font-size: 12px;
+            color: var(--muted-light);
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        body.dark-mode .bio{
+            color: var(--muted-dark);
+        }
+
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ffffff;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.05);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .social-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #764ba2, #667eea);
+        }
+
+        .decorative-line {
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            margin: 8px 0;
+            border-radius: 1px;
+        }
+
+        /* Toggle button styles */
+        .theme-toggle {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            z-index: 5;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            padding: 8px 10px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 6px 18px rgba(16,24,40,0.08);
+            transition: transform 0.18s ease, background 0.25s ease;
+        }
+
+        .theme-toggle:focus{
+            outline: 2px solid #667eea;
+            outline-offset: 3px;
+        }
+
+        body.dark-mode .theme-toggle{
+            background: rgba(255,255,255,0.04);
+            color: var(--text-primary-dark);
+            box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .theme-icon{
+            font-size: 16px;
+        }
+
+        @media (max-width: 400px) {
+            .business-card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="business-card" role="region" aria-label="Business card">
+        <button id="theme-toggle" class="theme-toggle" aria-pressed="false" aria-label="Toggle dark mode">
+            <span id="theme-icon" class="theme-icon">🌙</span>
+            <span id="theme-text">Dark</span>
+        </button>
+
+        <div class="card-content">
+            <div class="left-section">
+                <div class="top-info">
+                    <h1 class="name">Namrita Aggarwal</h1>
+                    <div class="decorative-line"></div>
+                    <h2 class="title">Tech Enthusiast | CSE Student</h2>
+                    <p class="bio"> <b>Skills:</b> C++, HTML, CSS, PHP <br>
+<b>Creative Side:</b> Sketching & Painting (State/District Achievements) <br>
+<b>Interests:</b> Web Development | Problem Solving | Innovation 
+</p>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/namrita-aggarwal-1383a8201/" class="social-link" title="LinkedIn" aria-label="LinkedIn">
+                        <span>in</span>
+                    </a>
+                    <a href="https://leetcode.com/u/namritaa01/" class="social-link" title="LeetCode" aria-label="LeetCode">
+                        <span>🔗</span>
+                    </a>
+                    <a href="mailto:namritaaggarwal@gmail.com" class="social-link" title="Email" aria-label="Email">
+                        <span>@</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="right-section">
+                <img src="profilepic.jpg" 
+                     alt="Profile picture of Namrita" 
+                     class="profile-pic">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            const toggle = document.getElementById('theme-toggle');
+            const icon = document.getElementById('theme-icon');
+            const text = document.getElementById('theme-text');
+
+            // Determine initial theme: localStorage -> prefers-color-scheme
+            const stored = localStorage.getItem('darkMode');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isDark = stored ? stored === 'true' : prefersDark;
+
+            function applyTheme(dark){
+                document.body.classList.toggle('dark-mode', dark);
+                toggle.setAttribute('aria-pressed', String(dark));
+                if(dark){
+                    icon.textContent = '☀️'; // sun when dark (to switch to light)
+                    text.textContent = 'Light';
+                } else {
+                    icon.textContent = '🌙'; // moon when light (to switch to dark)
+                    text.textContent = 'Dark';
+                }
+            }
+
+            // initialize
+            applyTheme(isDark);
+
+            // click handler
+            toggle.addEventListener('click', function(){
+                const nowDark = document.body.classList.toggle('dark-mode');
+                localStorage.setItem('darkMode', String(nowDark));
+                applyTheme(nowDark);
+                // small press animation
+                toggle.style.transform = 'scale(0.98)';
+                setTimeout(()=> toggle.style.transform = '', 120);
+            });
+
+            // respond to system changes (optional)
+            if(window.matchMedia){
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                    const stored = localStorage.getItem('darkMode');
+                    if(stored === null){ // only follow system if user hasn't set preference
+                        applyTheme(e.matches);
+                    }
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
